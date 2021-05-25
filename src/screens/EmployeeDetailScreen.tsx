@@ -13,12 +13,11 @@ export default function EmployeeDetailScreen(props: Props) {
   const id = props.match.params.id;
   const [employee, setEmployee] = useState<Employee | null>(null);
 
-  async function getEmployeeDisini() {
-    const empl = await getEmployee(id);
-    setEmployee(empl);
-  }
-
   useEffect(() => {
+    async function getEmployeeDisini() {
+      const empl = await getEmployee(id);
+      setEmployee(empl);
+    }
     getEmployeeDisini();
   }, [id]);
 
