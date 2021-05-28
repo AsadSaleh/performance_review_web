@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { Employee } from "../models/employee";
-import { getEmployees } from "../repositories/employeeRepository";
+import { Link, RouteComponentProps } from "react-router-dom";
+import { Employee } from "../../models/employee";
+import { getEmployees } from "../../repositories/employeeRepository";
 
-export default function EmployeeListScreen() {
+export default function EmployeeListScreen(props: RouteComponentProps) {
   const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<Employee[]>([]);
 
@@ -16,14 +16,33 @@ export default function EmployeeListScreen() {
     console.table(data);
   }
 
+  function handleCreateNewEmployee() {
+    props.history.push("/employee/new");
+  }
+
+  function handleDelete(e: Employee) {
+    const confirmation = window.confirm(
+      `Are you sure you want to delete ${e.name}?`
+    );
+    if (confirmation) {
+      deleteEmployee(e);
+    }
+  }
+
+  function handleEdit(e: Employee) {
+    props.history.push(`/employee/${e.id}`);
+  }
+
+  function deleteEmployee(e: Employee) {}
+
   useEffect(() => {
     getDataFromServer();
-    // console.log("Aku dipanggil dari useEffect");
   }, []);
 
   return (
     <div>
-      {loading ? "Loading nich...." : null}
+      {loading ? "Loading...." : null}
+      <button onClick={handleCreateNewEmployee}>Create New Employee</button>
       <table>
         <thead>
           <tr>
@@ -40,11 +59,11 @@ export default function EmployeeListScreen() {
               <td>{item.name}</td>
               <td>{item.address?.city}</td>
               <td>
-                <Link to={`/employee-detail/${item.id}`}>
+                <Link to={`/employee/${item.id}`}>
                   <button>Go to Detail</button>
                 </Link>
-                <button />
-                <button />
+                <button onClick={() => handleEdit(item)}>Edit</button>
+                <button onClick={() => handleDelete(item)}>Delete</button>
               </td>
             </tr>
           ))}
