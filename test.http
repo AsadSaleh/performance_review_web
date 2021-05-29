@@ -1,0 +1,27 @@
+GET http://localhost:3000
+###
+GET http://localhost:3000/employee
+###
+GET http://localhost:3000/employee/3
+###
+POST http://localhost:3000/employee HTTP/2
+Content-Type: application/json
+
+{
+  "name": "Irwin",
+  "department": "Engineering Team",
+  "city": "Bekasi",
+  "email": "irwin@infradigital.io"
+}
+### 
+PUT http://localhost:3000/employee/1 HTTP/2
+Content-Type: application/json
+
+{
+  "name": "Asad",
+  "department": "Engineering Team",
+  "city": "Jakarta",
+  "email": "asad@infradigital.io"
+}
+###
+DELETE http://localhost:3000/employee/3 HTTP/2
