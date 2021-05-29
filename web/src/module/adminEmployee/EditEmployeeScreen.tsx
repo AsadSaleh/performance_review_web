@@ -28,7 +28,7 @@ export default function EditEmployeeScreen(
       id: Math.random().toString().replaceAll(".", ""),
       name: v.name,
       department: v.department,
-      address: { city: v.city },
+      city: v.city,
     });
     props.history.push(`/employee/${employeeId}`);
   }
@@ -44,7 +44,7 @@ export default function EditEmployeeScreen(
         onSubmit={handleEditEmployee}
         initialValues={{
           name: employee?.name,
-          city: employee?.address?.city,
+          city: employee?.city,
           department: employee?.department,
         }}
       />

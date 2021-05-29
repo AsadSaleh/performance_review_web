@@ -16,7 +16,7 @@ export default function CreateEmployeeScreen(props: RouteComponentProps) {
       id: Math.random().toString().replaceAll(".", ""),
       name: v.name,
       department: v.department,
-      address: { city: v.city },
+      city: v.city,
     });
     props.history.push("/employee");
   }

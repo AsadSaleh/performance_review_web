@@ -56,7 +56,7 @@ export default function EmployeeDetailScreen(
         </Row>
         <Row>
           <Col xs={3}>City</Col>
-          <Col>{employee.address?.city}</Col>
+          <Col>{employee.city}</Col>
         </Row>
       </Container>
     </div>

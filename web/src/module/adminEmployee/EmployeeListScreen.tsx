@@ -71,7 +71,7 @@ export default function EmployeeListScreen(props: RouteComponentProps) {
             <tr key={idx}>
               <td>{item.id}</td>
               <td>{item.name}</td>
-              <td>{item.address?.city}</td>
+              <td>{item.city}</td>
               <td>
                 <Link to={`/employee/${item.id}`}>
                   <Button color="primary" size="sm" outline>
