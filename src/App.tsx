@@ -9,6 +9,8 @@ import PerformanceReviewDetailScreen from "./module/adminPerfReview/PerformanceR
 import FillPerfReviewByEmployee from "./module/employeePerfReview/FillPerfReviewByEmployee";
 import PerformanceReviewListScreen from "./module/adminPerfReview/PerformanceReviewListScreen";
 import TopNavigationBar from "./ui_components/TopNavigationBar";
+import InitialScreen from "./ui_components/InitialScreen";
+import EditEmployeeScreen from "./module/adminEmployee/EditEmployeeScreen";
 
 function App() {
   return (
@@ -26,8 +28,14 @@ function MainApp() {
     <div>
       <TopNavigationBar />
       <Switch>
+        <Route exact path="/" component={InitialScreen} />
         <Route exact path="/employee" component={EmployeeListScreen} />
         <Route exact path="/employee/new" component={CreateEmployeeScreen} />
+        <Route
+          exact
+          path="/employee/:employeeId/edit"
+          component={EditEmployeeScreen}
+        />
         <Route exact path="/employee/:id" component={EmployeeDetailScreen} />
         <Route
           exact
@@ -36,7 +44,7 @@ function MainApp() {
         />
         <Route
           exact
-          path="/performance-review/new"
+          path="/performance-review/new/:employeeId"
           component={CreatePerfReviewScreen}
         />
         <Route

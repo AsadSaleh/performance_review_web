@@ -4,7 +4,7 @@ const data: PerformanceReview[] = [
   {
     id: 437892,
     target: {
-      id: 34270,
+      id: "4270",
       name: "asad",
     },
     reviewers: [],
@@ -13,7 +13,7 @@ const data: PerformanceReview[] = [
   {
     id: 243780,
     target: {
-      id: 42380,
+      id: "42380",
       name: "Ali",
     },
     reviewers: [],

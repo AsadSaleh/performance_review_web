@@ -1,23 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  Collapse,
+  Nav,
+  Navbar,
+  NavbarBrand,
+  NavbarText,
+  NavbarToggler,
+  NavItem,
+  NavLink,
+} from "reactstrap";
 
 export default function TopNavigationBar() {
-  function logout() {}
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggle = () => setIsOpen(!isOpen);
+
   return (
-    <nav>
-      <h1>Welcome to App</h1>
-      <Link to="/login" onClick={logout}>
-        Logout
-      </Link>
-      <p>Available Menus:</p>
-      <ul>
-        <li>
-          <Link to="/employee">Employee</Link>
-        </li>
-        <li>
-          <Link to="/performance-review">Performance Review List</Link>
-        </li>
-      </ul>
-    </nav>
+    <div className="px-2">
+      <Navbar color="light" light expand="md">
+        <Link to="/" component={NavbarBrand}>
+          Performance Review App
+        </Link>
+        <NavbarToggler onClick={toggle} />
+        <Collapse isOpen={isOpen} navbar>
+          <Nav className="mr-auto" navbar>
+            <NavItem>
+              <Link to="/employee" component={NavLink}>
+                Employees
+              </Link>
+            </NavItem>
+            <NavItem>
+              <Link component={NavLink} to="/performance-review">
+                Performance Reviews
+              </Link>
+            </NavItem>
+          </Nav>
+        </Collapse>
+      </Navbar>
+    </div>
   );
 }

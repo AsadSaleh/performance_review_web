@@ -1,54 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router";
+import AsyncSelect from "react-select/async";
 import { Employee } from "../../models/employee";
-import { getEmployees } from "../../repositories/employeeRepository";
+import { EmployeeIdParams, IdParams } from "../../models/routeParams";
+import {
+  getEmployee,
+  getEmployees,
+} from "../../repositories/employeeRepository";
 
-export default function CreatePerfReviewScreen() {
-  const [employees, setEmployees] = useState<Employee[]>([
-    {
-      id: 89723,
-      name: "klafjds",
-    },
-  ]);
+export default function CreatePerfReviewScreen(
+  props: RouteComponentProps<EmployeeIdParams>
+) {
+  const employeeId = props.match.params.employeeId;
+  const [employee, setEmployee] = useState<Employee | null>(null);
 
-  function handleRemoveEmployee(e: Employee) {
-    setEmployees((prev) => prev.filter((item) => item.id != e.id));
+  useEffect(() => {
+    async function getEmployeeDisini() {
+      const employee = await getEmployee(employeeId);
+      setEmployee(employee);
+    }
+    getEmployeeDisini();
+  }, []);
+
+  if (employee == null) {
+    return <div> data kosong </div>;
+  }
+
+  async function getOptions(inputValue: string, callback: any) {
+    console.log("gue dipanggil");
+    // if (!inputValue) {
+    //   return callback([]);
+    // }
+    // Filter out current empployee
+    const employees = await getEmployees();
+    const filteredEmployees = employees.filter(
+      (item) => item.id != employee?.id
+    );
+    return callback(filteredEmployees);
   }
 
   return (
-    <div>
-      <h1>Create PR Screen</h1>
+    <div className="py-2">
+      <h3>Performance Review for {employee.name}</h3>
 
       <p>Assign Co-Worker:</p>
-      <ul>
-        {employees.map((employee) => (
-          <li key={employee.id}>
-            <span>{employee.name}</span>
-            <span>
-              <button onClick={() => handleRemoveEmployee(employee)}>X</button>
-            </span>
-          </li>
-        ))}
-      </ul>
-      <MiniForm />
-    </div>
-  );
-}
 
-function MiniForm() {
-  const [employees, setEmployees] = useState<Employee[]>([]);
-  function handleSubmit() {}
-  async function handleChange(e: any) {
-    console.log(e.target.value);
-    const search: string = e.target.value;
-    const res = await getEmployees();
-    return res.filter((e) =>
-      e.name.toLowerCase().includes(search.toLowerCase())
-    );
-  }
-  return (
-    <form>
-      <input placeholder="Nama Karyawan" onChange={handleChange} />
-      <button type="submit">Add Co-Worker</button>
-    </form>
+      <AsyncSelect<Employee, true>
+        isMulti
+        cacheOptions
+        defaultOptions
+        closeMenuOnSelect={false}
+        getOptionLabel={(option) => option.name}
+        getOptionValue={(option) => option.name}
+        loadOptions={getOptions}
+      />
+    </div>
   );
 }

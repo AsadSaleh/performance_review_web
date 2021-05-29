@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
+import { Button, Col, Container, Row } from "reactstrap";
 import { Employee } from "../../models/employee";
+import { IdParams } from "../../models/routeParams";
 import { getEmployee } from "../../repositories/employeeRepository";
 
-interface MatchParams {
-  id: string;
-}
-
-interface Props extends RouteComponentProps<MatchParams> {}
-
-export default function EmployeeDetailScreen(props: Props) {
+export default function EmployeeDetailScreen(
+  props: RouteComponentProps<IdParams>
+) {
   const id = props.match.params.id;
   const [employee, setEmployee] = useState<Employee | null>(null);
 
@@ -26,23 +24,41 @@ export default function EmployeeDetailScreen(props: Props) {
   }
 
   return (
-    <div>
-      <h1>{employee.name}</h1>
+    <div className="py-2">
+      <div className="d-flex justify-content-between align-items-center px-2">
+        <h3>{employee.name}</h3>
+        <div>
+          <Link to={`/employee/${id}/edit`} className="mx-2">
+            <Button color="success">Edit Employee</Button>
+          </Link>
+          <Link to={`/performance-review/new/${id}`}>
+            <Button color="primary">Create Performance Review</Button>
+          </Link>
+        </div>
+      </div>
 
-      <Link to="/performance-review/new">
-        <button>Create Performance Review</button>
-      </Link>
-
-      <h4>ID</h4>
-      <h5>{employee.id}</h5>
-      <h4>Phone Number</h4>
-      <h5>{employee.phone}</h5>
-      <h4>Email</h4>
-      <h5>{employee.email}</h5>
-      <h4>Department</h4>
-      <h5>{employee.department}</h5>
-      <h4>Address</h4>
-      <h5>{employee.address?.city}</h5>
+      <Container fluid>
+        <Row>
+          <Col xs={3}>ID</Col>
+          <Col>{employee.id}</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Phone Number</Col>
+          <Col>{employee.phone}</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Email</Col>
+          <Col>{employee.email}</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>Department</Col>
+          <Col>{employee.department}</Col>
+        </Row>
+        <Row>
+          <Col xs={3}>City</Col>
+          <Col>{employee.address?.city}</Col>
+        </Row>
+      </Container>
     </div>
   );
 }
