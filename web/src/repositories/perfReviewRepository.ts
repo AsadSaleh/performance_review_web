@@ -1,33 +1,15 @@
-import { PerformanceReview,PerformanceReviewStatus } from "../models/performanceReview";
-
-const data: PerformanceReview[] = [
-  {
-    id: 437892,
-    target: {
-      id: "4270",
-      name: "asad",
-    },
-    reviewers: [],
-    status: PerformanceReviewStatus.uncompleted,
-  },
-  {
-    id: 243780,
-    target: {
-      id: "42380",
-      name: "Ali",
-    },
-    reviewers: [],
-    status: PerformanceReviewStatus.uncompleted,
-  },
-];
+import {
+  PerformanceReview,
+  PerformanceReviewStatus,
+} from "../models/performanceReview";
 
 export async function getPerformanceReviews(): Promise<PerformanceReview[]> {
   try {
-    const str = localStorage.getItem("PerformanceReview")
-    if (str==null) {
+    const str = localStorage.getItem("PerformanceReview");
+    if (str == null) {
       localStorage.setItem("PerformanceReview", JSON.stringify([]));
       return [];
-    };
+    }
     const data = JSON.parse(str);
     // const response = await fetch("");
     // const data = await response.json();
@@ -37,7 +19,9 @@ export async function getPerformanceReviews(): Promise<PerformanceReview[]> {
   }
 }
 
-export async function getPerformanceReview(id: number): Promise<PerformanceReview | null> {
+export async function getPerformanceReview(
+  id: number
+): Promise<PerformanceReview | null> {
   try {
     const response = await fetch(`${id}`);
     const data = await response.json();
@@ -47,27 +31,33 @@ export async function getPerformanceReview(id: number): Promise<PerformanceRevie
   }
 }
 
-export async function createPerformanceReview(e: PerformanceReview) : Promise<PerformanceReview | null> {
+export async function createPerformanceReview(
+  e: PerformanceReview
+): Promise<PerformanceReview | null> {
   try {
     const response = await fetch("");
-    const data : PerformanceReview= await response.json();
+    const data: PerformanceReview = await response.json();
     return data;
   } catch {
     return null;
   }
 }
 
-export async function updatePerformanceReview(e: PerformanceReview) : Promise<PerformanceReview | null> {
+export async function updatePerformanceReview(
+  e: PerformanceReview
+): Promise<PerformanceReview | null> {
   try {
     const response = await fetch("");
-    const data : PerformanceReview= await response.json();
+    const data: PerformanceReview = await response.json();
     return data;
   } catch {
     return null;
   }
 }
 
-export async function deletePerformanceReview(e: PerformanceReview) : Promise<true | null> {
+export async function deletePerformanceReview(
+  e: PerformanceReview
+): Promise<true | null> {
   try {
     await fetch("");
     return true;
@@ -79,13 +69,11 @@ export async function deletePerformanceReview(e: PerformanceReview) : Promise<tr
 export async function submitPerformanceReview(id: string, body: any) {
   try {
     const res = await fetch("", {
-      method: "POST", 
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
-      }, 
+      },
       body: JSON.stringify({}),
     });
-  } catch (error) {
-    
-  }
+  } catch (error) {}
 }

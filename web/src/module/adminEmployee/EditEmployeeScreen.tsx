@@ -23,12 +23,11 @@ export default function EditEmployeeScreen(
   }, [employeeId]);
 
   async function handleEditEmployee(v: EmployeeFormValues) {
-    console.log(v);
-    await updateEmployee(employeeId, {
-      id: Math.random().toString().replaceAll(".", ""),
+    await updateEmployee(+employeeId, {
       name: v.name,
       department: v.department,
       city: v.city,
+      email: v.email,
     });
     props.history.push(`/employee/${employeeId}`);
   }
@@ -43,9 +42,10 @@ export default function EditEmployeeScreen(
       <EmployeeForm
         onSubmit={handleEditEmployee}
         initialValues={{
-          name: employee?.name,
-          city: employee?.city,
-          department: employee?.department,
+          name: employee.name,
+          city: employee.city,
+          department: employee.department,
+          email: employee.email,
         }}
       />
     </div>

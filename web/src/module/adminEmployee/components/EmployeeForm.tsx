@@ -1,12 +1,12 @@
-import { createEmployee } from "../../../repositories/employeeRepository";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { RouteComponentProps } from "react-router";
 import { useForm } from "react-hook-form";
+import { Button, Form, FormGroup, Container, Row, Col } from "reactstrap";
 
 export type EmployeeFormValues = {
   name: string;
   department: string;
+  phone: string;
   city: string;
+  email: string;
 };
 
 type EmployeeFormProps = {
@@ -21,27 +21,62 @@ export default function EmployeeForm(props: EmployeeFormProps) {
 
   return (
     <Form onSubmit={handleSubmit(props.onSubmit)}>
-      <FormGroup className="mt-2">
-        <label>Full Name</label>
-        <input
-          {...register("name", { required: true })}
-          id="fullname"
-          placeholder="John Doe"
-          required
-        />
-      </FormGroup>
-      <FormGroup className="mt-2">
-        <label>Department</label>
-        <input
-          {...register("department")}
-          id="department"
-          placeholder="Sales Team"
-        />
-      </FormGroup>
-      <FormGroup className="mt-2">
-        <label>City</label>
-        <input {...register("city")} id="city" placeholder="Jakarta" />
-      </FormGroup>
+      <Row className="mb-2">
+        <Col xs={3}>
+          <label>Full Name</label>
+        </Col>
+        <Col xs={6}>
+          <input
+            {...register("name", { required: true })}
+            placeholder="John Doe"
+            required
+          />
+        </Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs={3}>
+          <label>Department</label>
+        </Col>
+        <Col xs={6}>
+          <input
+            {...register("department")}
+            id="department"
+            placeholder="Sales Team"
+          />
+        </Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs={3}>
+          <label>Phone Number</label>
+        </Col>
+        <Col xs={6}>
+          <input
+            {...register("phone")}
+            id="phone"
+            placeholder="+62 8787 999 666"
+          />
+        </Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs={3}>
+          <label>City</label>
+        </Col>
+        <Col xs={6}>
+          <input {...register("city")} id="city" placeholder="Jakarta" />
+        </Col>
+      </Row>
+      <Row className="mb-2">
+        <Col xs={3}>
+          <label>Email</label>
+        </Col>
+        <Col xs={6}>
+          <input
+            {...register("email")}
+            id="email"
+            placeholder="user@gmail.com"
+          />
+        </Col>
+      </Row>
 
       <div className="d-flex justify-content-end">
         <Button type="submit" color="primary" className="mt-5">

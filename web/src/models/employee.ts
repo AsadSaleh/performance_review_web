@@ -1,7 +1,13 @@
 export interface Employee {
-  id: string;
+  id: number;
   name: string;
-  phone?: string;
+  email?: string;
+  department?: string;
+  city?: string;
+}
+
+export interface EditEmployee {
+  name: string;
   email?: string;
   department?: string;
   city?: string;

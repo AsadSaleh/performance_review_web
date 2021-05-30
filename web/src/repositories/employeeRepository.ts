@@ -1,56 +1,67 @@
-import { Employee } from "../models/employee";
+import { EditEmployee, Employee } from "../models/employee";
 
 export async function getEmployees(): Promise<Employee[]> {
-  console.log('Calling getEmployees')
+  console.log("Calling getEmployees");
   try {
-    const str = window.localStorage.getItem("Employee");
-    if (str == null) {
-      window.localStorage.setItem("Employee", JSON.stringify([]));
-      return []
-    };
-    const data = JSON.parse(str) as Employee[];
-    return data;
+    const res = await fetch("http://localhost:3000/employee");
+    const json = await res.json();
+    console.log({ res });
+    console.log(json);
+    return json;
   } catch (error) {
+    console.log(error);
     return [];
   }
 }
 
 export async function getEmployee(id: string): Promise<Employee | null> {
   try {
-    const response = await fetch(
-      `https://jsonplaceholder.typicode.com/users/${id}`
-    );
-    const data = await response.json();
-    return data;
+    const res = await fetch(`http://localhost:3000/employee/${id}`);
+    const json = (await res.json()) as Employee[];
+    return json[0];
   } catch (error) {
     return null;
   }
 }
 
-export async function createEmployee(e: Employee): Promise<Employee | null> {
+export async function createEmployee(
+  e: EditEmployee
+): Promise<EditEmployee | null> {
   try {
-    const str = window.localStorage.getItem("Employee");
-    console.log({ str });
-    if (str == null) {
-      window.localStorage.setItem("Employee", JSON.stringify([e]));
-      return e;
-    };
-    const employees = JSON.parse(str) as Employee[];
-    console.log({ employees });
-    const newEmployees = employees.concat(e)
-    console.log({newEmployees});
-    window.localStorage.setItem("Employee", JSON.stringify(newEmployees));
+    console.log("createEmployee", e);
+    const res = await fetch(`http://localhost:3000/employee`, {
+      method: "POST",
+      body: JSON.stringify(e),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log({ res });
+    const json = await res.json();
+    console.log({ json });
     return e;
   } catch {
+    console.log("error");
     return null;
   }
 }
 
-export async function updateEmployee(id: Employee["id"], e: Employee): Promise<Employee | null> {
+export async function updateEmployee(
+  id: Employee["id"],
+  e: EditEmployee
+): Promise<Employee | null> {
   try {
-    const response = await fetch("");
-    const data: Employee = await response.json();
-    return data;
+    console.log("updateEmployee", id, e);
+    const res = await fetch(`http://localhost:3000/employee/${id}`, {
+      method: "PUT",
+      body: JSON.stringify(e),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const json = await res.json();
+    console.log({ json });
+    return { ...e, id };
   } catch {
     return null;
   }
@@ -58,16 +69,11 @@ export async function updateEmployee(id: Employee["id"], e: Employee): Promise<E
 
 export async function deleteEmployee(e: Employee): Promise<boolean> {
   try {
-    const str = window.localStorage.getItem("Employee");
-    if (str == null) {
-      window.localStorage.setItem("Employee", JSON.stringify([]));
-      return true;
-    };
-    const data = JSON.parse(str) as Employee[];
-    console.log({data});
-    const newData = data.filter(item => item.id != e.id);
-    console.log({newData});
-    window.localStorage.setItem("Employee", JSON.stringify(newData));
+    const res = await fetch(`http://localhost:3000/employee/${e.id}`, {
+      method: "DELETE",
+    });
+    const json = await res.json();
+    console.log({ json });
     return true;
   } catch {
     return false;

@@ -43,10 +43,6 @@ export default function EmployeeDetailScreen(
           <Col>{employee.id}</Col>
         </Row>
         <Row>
-          <Col xs={3}>Phone Number</Col>
-          <Col>{employee.phone}</Col>
-        </Row>
-        <Row>
           <Col xs={3}>Email</Col>
           <Col>{employee.email}</Col>
         </Row>

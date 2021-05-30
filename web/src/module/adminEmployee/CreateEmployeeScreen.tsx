@@ -1,29 +1,25 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { createEmployee } from "../../repositories/employeeRepository";
-import EmployeeForm from "./components/EmployeeForm";
-
-type FormValue = {
-  name: string;
-  department: string;
-  city: string;
-};
+import EmployeeForm, { EmployeeFormValues } from "./components/EmployeeForm";
 
 export default function CreateEmployeeScreen(props: RouteComponentProps) {
-  async function handleCreateEmployee(v: FormValue) {
-    console.log(v);
-    await createEmployee({
-      id: Math.random().toString().replaceAll(".", ""),
-      name: v.name,
-      department: v.department,
-      city: v.city,
-    });
-    props.history.push("/employee");
+  async function handleCreateEmployee(v: EmployeeFormValues) {
+    try {
+      await createEmployee({
+        name: v.name,
+        department: v.department,
+        city: v.city,
+        email: v.email,
+      });
+      props.history.push("/employee");
+    } catch (error) {}
   }
+
   return (
     <div className="p-5">
       <h3>Create New Employee</h3>
-      <EmployeeForm onSubmit={handleCreateEmployee} />;
+      <EmployeeForm onSubmit={handleCreateEmployee} />
     </div>
   );
 }
