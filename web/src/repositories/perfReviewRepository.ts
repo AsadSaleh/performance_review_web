@@ -79,7 +79,7 @@ export async function createPerformanceReview(
 ): Promise<PerformanceReview | null> {
   try {
     console.log("hadir");
-    const response = await fetch("http://localhost:3001/performance-review", {
+    const response = await fetch("http://localhost:3000/performance-review", {
       method: "POST",
       body: JSON.stringify(e),
       headers: {
@@ -99,7 +99,7 @@ export async function updatePerformanceReview(
 ): Promise<PerformanceReview | null> {
   try {
     const response = await fetch(
-      `http://localhost:3001/performance-review/${id}`,
+      `http://localhost:3000/performance-review/${id}`,
       {
         method: "PUT",
         body: JSON.stringify(e),
