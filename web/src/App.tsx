@@ -12,6 +12,7 @@ import TopNavigationBar from "./ui_components/TopNavigationBar";
 import InitialScreen from "./ui_components/InitialScreen";
 import EditEmployeeScreen from "./module/adminEmployee/EditEmployeeScreen";
 import PerformanceReviewEditScreen from "./module/adminPerfReview/PerformanceReviewEditScreen";
+import EmployeePerformanceReviewList from "./module/employeePerfReview/EmployeePerformanceReviewList";
 
 function App() {
   return (
@@ -60,7 +61,12 @@ function MainApp() {
         />
         <Route
           exact
-          path="/performance-review/:id/reviewer/:reviewerId"
+          path="/pending-performance-review"
+          component={EmployeePerformanceReviewList}
+        />
+        <Route
+          exact
+          path="/pending-performance-review/:id"
           component={FillPerfReviewByEmployee}
         />
       </Switch>

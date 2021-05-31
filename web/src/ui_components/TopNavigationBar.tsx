@@ -34,6 +34,11 @@ export default function TopNavigationBar() {
                 Performance Reviews
               </Link>
             </NavItem>
+            <NavItem>
+              <Link component={NavLink} to="/pending-performance-review">
+                Pending Performance Reviews
+              </Link>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>

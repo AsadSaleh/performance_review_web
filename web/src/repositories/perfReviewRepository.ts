@@ -126,7 +126,11 @@ export async function deletePerformanceReview(
   }
 }
 
-export async function submitPerformanceReview(id: string, body: any) {
+export async function submitPerformanceReview(
+  prId: number,
+  reviewerId: number,
+  body: any
+) {
   try {
     const res = await fetch("", {
       method: "POST",
