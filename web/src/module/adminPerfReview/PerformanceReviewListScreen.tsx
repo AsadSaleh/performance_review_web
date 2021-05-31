@@ -1,81 +1,76 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import {
-  PerformanceReview,
-  PerformanceReviewStatus,
-} from "../../models/performanceReview";
-import {
-  deletePerformanceReview,
-  getPerformanceReviews,
-} from "../../repositories/perfReviewRepository";
+import { Button, Table } from "reactstrap";
+import { PerformanceReview } from "../../models/performanceReview";
+import { getPerformanceReviews } from "../../repositories/perfReviewRepository";
 
 export default function PerformanceReviewListScreen(
   props: RouteComponentProps
 ) {
-  // const [state, setState] = useState<UiState>("loading");
   const [data, setData] = useState<PerformanceReview[]>([]);
 
-  async function getData() {
-    try {
-      const res = await getPerformanceReviews();
-      setData(res);
-    } catch (error) {}
-  }
-
-  function handleDelete(e: PerformanceReview) {
-    const confirmation = window.confirm(
-      `Are you sure you want to delete Performance Review\nfor ${e.target.name}?`
-    );
-    if (confirmation) {
-      deleteEmployee(e);
-    }
-  }
-
   function handleEdit(e: PerformanceReview) {
-    props.history.push(`/performance-review/${e.id}`);
-  }
-
-  async function deleteEmployee(e: PerformanceReview) {
-    try {
-      await deletePerformanceReview(e);
-    } catch (error) {}
+    console.log({ e });
+    props.history.push(`/performance-review/edit/${e.id}`);
   }
 
   function handleCreateNewPR() {
+    console.log("handleCreateNewPr");
     props.history.push("/performance-review/new");
   }
 
   useEffect(() => {
+    async function getData() {
+      try {
+        const res = await getPerformanceReviews();
+        setData(res);
+      } catch (error) {}
+    }
     getData();
   }, []);
 
   return (
-    <div>
-      <button onClick={handleCreateNewPR}>Create New Employee</button>
-      <table>
+    <div className="py-2">
+      <div className="d-flex justify-content-end px-2">
+        <Button color="primary" onClick={handleCreateNewPR}>
+          Create New Performance Review
+        </Button>
+      </div>
+      <Table>
         <thead>
           <tr>
             <td>No.</td>
             <td>PR Target</td>
+            <td>Status</td>
             <td>Action</td>
           </tr>
         </thead>
         <tbody>
           {data.map((item) => (
-            <tr>
+            <tr key={item.id}>
               <td>{item.id}</td>
-              <td>{item.target.name}</td>
+              <td>{item.targetEmployee.name}</td>
+              <td>{item.status}</td>
               <td>
-                <Link to="/performance-review/7/13">
-                  <button>Go to Detail</button>
+                <Link to={`/performance-review/${item.id}`}>
+                  <Button color="primary" size="sm" outline>
+                    Go to Detail
+                  </Button>
                 </Link>
-                <button onClick={() => handleEdit(item)}>Edit</button>
-                <button onClick={() => handleDelete(item)}>Delete</button>
+                <Button
+                  color="success"
+                  size="sm"
+                  onClick={() => handleEdit(item)}
+                  outline
+                  className="mx-2"
+                >
+                  Edit
+                </Button>
               </td>
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </div>
   );
 }

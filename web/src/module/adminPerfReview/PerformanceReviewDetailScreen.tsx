@@ -1,59 +1,53 @@
-export default function PerformanceReviewDetailScreen() {
-  function handleSubmit(e: any) {
-    e.preventDefault();
-    console.log(e.target);
+import React, { useEffect, useState } from "react";
+import { RouteComponentProps } from "react-router";
+import { Link } from "react-router-dom";
+import { Button, Col, Container, Row } from "reactstrap";
+import { PerformanceReview } from "../../models/performanceReview";
+import { IdParams } from "../../models/routeParams";
+import { getPerformanceReview } from "../../repositories/perfReviewRepository";
+
+export default function PerformanceReviewDetailScreen(
+  props: RouteComponentProps<IdParams>
+) {
+  const id = +props.match.params.id;
+  const [perfReview, setPerfReview] = useState<PerformanceReview | null>(null);
+
+  useEffect(() => {
+    async function getPerformanceReviewHere() {
+      const res = await getPerformanceReview(id);
+      setPerfReview(res);
+    }
+    getPerformanceReviewHere();
+  }, [id]);
+
+  if (perfReview == null) {
+    return <div>Data not available</div>;
   }
   return (
-    <div>
-      <h2>Performance Review for: USER</h2>
-      <h4>By: USER_ME</h4>
-      <form onSubmit={handleSubmit}>
+    <div className="py-2">
+      <div className="d-flex justify-content-between align-items-center px-2">
+        <h3>Performance Review for "{perfReview?.targetEmployee.name}"</h3>
         <div>
-          <label>1. Can get the job done well.</label>
-          <select>
-            <option>1. Bad</option>
-            <option>2. Poor</option>
-            <option>3. Fine</option>
-            <option>4. Good</option>
-            <option>5. Excelent</option>
-          </select>
+          <Link to={`/performance-review/edit/${perfReview.id}`}>
+            <Button color="success">Edit Performance Review</Button>
+          </Link>
         </div>
+      </div>
 
-        <div>
-          <label>2. Team Work</label>
-          <select>
-            <option>1. Bad</option>
-            <option>2. Poor</option>
-            <option>3. Fine</option>
-            <option>4. Good</option>
-            <option>5. Excelent</option>
-          </select>
-        </div>
-
-        <div>
-          <label>3. Communication</label>
-          <select>
-            <option>1. Bad</option>
-            <option>2. Poor</option>
-            <option>3. Fine</option>
-            <option>4. Good</option>
-            <option>5. Excelent</option>
-          </select>
-        </div>
-
-        <div>
-          <label>4. Time Dicipline</label>
-          <select>
-            <option>1. Bad</option>
-            <option>2. Poor</option>
-            <option>3. Fine</option>
-            <option>4. Good</option>
-            <option>5. Excelent</option>
-          </select>
-        </div>
-
-        <input type="submit" />
-      </form>
+      <Container fluid>
+        <Row>
+          <Col>
+            <div>
+              Reviewers:
+              <ul>
+                {perfReview?.reviewers.map((reviewer) => (
+                  <li key={reviewer.id}>{reviewer.name}</li>
+                ))}
+              </ul>
+            </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }

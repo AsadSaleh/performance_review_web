@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { Button, Form, FormGroup, Container, Row, Col } from "reactstrap";
+import { Button, Col, Form, Row } from "reactstrap";
 
 export type EmployeeFormValues = {
   name: string;
@@ -42,18 +42,6 @@ export default function EmployeeForm(props: EmployeeFormProps) {
             {...register("department")}
             id="department"
             placeholder="Sales Team"
-          />
-        </Col>
-      </Row>
-      <Row className="mb-2">
-        <Col xs={3}>
-          <label>Phone Number</label>
-        </Col>
-        <Col xs={6}>
-          <input
-            {...register("phone")}
-            id="phone"
-            placeholder="+62 8787 999 666"
           />
         </Col>
       </Row>

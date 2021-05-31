@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CreateEmployeeScreen from "./module/adminEmployee/CreateEmployeeScreen";
-import CreatePerfReviewScreen from "./module/adminPerfReview/CreatePerfRreviewScreen";
+import PerformanceReviewCreateScreen from "./module/adminPerfReview/PerformanceReviewCreateScreen";
 import EmployeeDetailScreen from "./module/adminEmployee/EmployeeDetailScreen";
 import EmployeeListScreen from "./module/adminEmployee/EmployeeListScreen";
 import LoginScreen from "./module/login/LoginScreen";
@@ -11,6 +11,7 @@ import PerformanceReviewListScreen from "./module/adminPerfReview/PerformanceRev
 import TopNavigationBar from "./ui_components/TopNavigationBar";
 import InitialScreen from "./ui_components/InitialScreen";
 import EditEmployeeScreen from "./module/adminEmployee/EditEmployeeScreen";
+import PerformanceReviewEditScreen from "./module/adminPerfReview/PerformanceReviewEditScreen";
 
 function App() {
   return (
@@ -44,8 +45,8 @@ function MainApp() {
         />
         <Route
           exact
-          path="/performance-review/new/:employeeId"
-          component={CreatePerfReviewScreen}
+          path="/performance-review/new"
+          component={PerformanceReviewCreateScreen}
         />
         <Route
           exact
@@ -54,7 +55,12 @@ function MainApp() {
         />
         <Route
           exact
-          path="/performance-review/:id/:reviewerId"
+          path="/performance-review/edit/:id"
+          component={PerformanceReviewEditScreen}
+        />
+        <Route
+          exact
+          path="/performance-review/:id/reviewer/:reviewerId"
           component={FillPerfReviewByEmployee}
         />
       </Switch>
