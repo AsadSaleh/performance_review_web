@@ -14,8 +14,8 @@ export async function getEmployees(): Promise<Employee[]> {
 export async function getEmployee(id: string): Promise<Employee | null> {
   try {
     const res = await api.get(`/employee/${id}`);
-    const json = (await res.json()) as Employee[];
-    return json[0];
+    const json = (await res.json()) as Employee;
+    return json;
   } catch (error) {
     return null;
   }
