@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Table } from "reactstrap";
-import { PerformanceReview } from "../../models/performanceReview";
+import { FlatPerformanceReview } from "../../models/performanceReview";
 import { getPerformanceReviews } from "../../repositories/perfReviewRepository";
 
 export default function EmployeePerformanceReviewList() {
-  const [prs, setPrs] = useState<PerformanceReview[]>([]);
+  const [prs, setPrs] = useState<FlatPerformanceReview[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -33,7 +33,7 @@ export default function EmployeePerformanceReviewList() {
           {prs.map((pr) => (
             <tr key={pr.id}>
               <td>{pr.id}</td>
-              <td>{pr.targetEmployee.name}</td>
+              <td>{pr.TargetEmployee.name}</td>
               <td>{pr.status}</td>
               <td>
                 <Link to={`/pending-performance-review/${pr.id}`}>

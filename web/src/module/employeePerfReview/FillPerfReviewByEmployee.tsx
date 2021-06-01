@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Button, Container } from "reactstrap";
 import { Employee } from "../../models/employee";
-import { PerformanceReview } from "../../models/performanceReview";
+import { FlatPerformanceReview } from "../../models/performanceReview";
 import {
   getPerformanceReview,
   submitPerformanceReview,
@@ -21,13 +21,15 @@ const radios: LabelValue[] = [
   { value: 5, label: "Excellent!" },
 ];
 
-export default function FillPerfReviewByEmployee(props: RouteComponentProps) {
+export default function FillPerfReviewByEmployee(
+  props: RouteComponentProps<{ performanceReviewId: string }>
+) {
   const currentUser: Employee = {
     id: 879423,
     name: "Hasan",
   };
-  const id = 478129;
-  const [pr, setPr] = useState<PerformanceReview | null>(null);
+  const id = props.match.params.performanceReviewId;
+  const [pr, setPr] = useState<FlatPerformanceReview | null>(null);
 
   const [v1, hc1] = useRadioState<LabelValue>();
   const [v2, hc2] = useRadioState<LabelValue>();
@@ -37,7 +39,7 @@ export default function FillPerfReviewByEmployee(props: RouteComponentProps) {
   useEffect(() => {
     async function getData() {
       try {
-        const res = await getPerformanceReview(id);
+        const res = await getPerformanceReview(+id);
         setPr(res);
       } catch (error) {}
     }
@@ -51,20 +53,23 @@ export default function FillPerfReviewByEmployee(props: RouteComponentProps) {
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     console.log({ v1, v2, v3, v4 });
-    submitPerformanceReview(id, currentUser.id, {
-      1: v1,
-      2: v2,
-      3: v3,
-      4: v4,
-    });
-    props.history.push("/pending-performance-review");
+
+    try {
+      submitPerformanceReview([
+        { QuestionId: 1, ChoiceId: v1?.value!, PerformanceReviewId: +id },
+        { QuestionId: 2, ChoiceId: v2?.value!, PerformanceReviewId: +id },
+        { QuestionId: 3, ChoiceId: v3?.value!, PerformanceReviewId: +id },
+        { QuestionId: 4, ChoiceId: v4?.value!, PerformanceReviewId: +id },
+      ]);
+      props.history.push("/pending-performance-review");
+    } catch (error) {}
   }
 
   return (
     <Container fluid>
       <h3>Employee Peer Review</h3>
       <div>
-        <h6>Performance Review for: "{pr.targetEmployee.name}"</h6>
+        <h6>Performance Review for: "{pr?.TargetEmployee?.name}"</h6>
         <h6>By: "{currentUser.name}"</h6>
         <form onSubmit={handleSubmit}>
           {/* 1 */}

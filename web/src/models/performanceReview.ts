@@ -1,5 +1,25 @@
 import { Employee } from "./employee";
 
+interface PerformanceReviewAnswer {
+  Question: {
+    id: number;
+    text: string;
+  };
+  Choice: {
+    id: number;
+    text: string;
+    value: number;
+  };
+}
+
+export interface FlatPerformanceReview {
+  id: number;
+  TargetEmployee: Employee;
+  Reviewer: Employee;
+  status: "pending" | "completed";
+  PerformanceReviewAnswers: PerformanceReviewAnswer[];
+}
+
 export interface PerformanceReview {
   id: number;
   targetEmployee: Employee;
@@ -8,8 +28,8 @@ export interface PerformanceReview {
 }
 
 export interface CreatePerformanceReviewPayload {
-  target_employee_id: number;
-  reviewers_id: number[];
+  TargetEmployeeId: number;
+  ReviewerIds: number[];
 }
 
 export interface PerformanceReviewValue {

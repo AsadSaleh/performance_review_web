@@ -66,7 +66,7 @@ function MainApp() {
         />
         <Route
           exact
-          path="/pending-performance-review/:id"
+          path="/pending-performance-review/:performanceReviewId"
           component={FillPerfReviewByEmployee}
         />
       </Switch>

@@ -1,68 +1,18 @@
 import {
   CreatePerformanceReviewPayload,
+  FlatPerformanceReview,
   PerformanceReview,
 } from "../models/performanceReview";
 import * as api from "../utils/api";
 
-const dataSet1: PerformanceReview[] = [
-  {
-    id: 48723,
-    reviewers: [
-      {
-        id: 832,
-        name: "Asad",
-      },
-      {
-        id: 5783,
-        name: "Miaw",
-      },
-      {
-        id: 78432,
-        name: "Kucing",
-      },
-    ],
-    targetEmployee: {
-      id: 57,
-      name: "Hanif",
-    },
-    status: "pending",
-  },
-  {
-    id: 234,
-    reviewers: [
-      {
-        id: 832,
-        name: "Asad",
-      },
-    ],
-    targetEmployee: {
-      id: 57,
-      name: "Said",
-    },
-    status: "pending",
-  },
-  {
-    id: 543,
-    reviewers: [
-      {
-        id: 832,
-        name: "Asad",
-      },
-    ],
-    targetEmployee: {
-      id: 57,
-      name: "Fadhil",
-    },
-    status: "pending",
-  },
-];
-
-export async function getPerformanceReviews(): Promise<PerformanceReview[]> {
+export async function getPerformanceReviews(): Promise<
+  FlatPerformanceReview[]
+> {
   try {
     const res = await api.get(`/performance-review`);
-    const json = await res.json();
+    const json = (await res.json()) as FlatPerformanceReview[];
     console.log({ json });
-    return dataSet1;
+    return json;
   } catch (error) {
     return [];
   }
@@ -70,9 +20,12 @@ export async function getPerformanceReviews(): Promise<PerformanceReview[]> {
 
 export async function getPerformanceReview(
   id: number
-): Promise<PerformanceReview | null> {
+): Promise<FlatPerformanceReview | null> {
   try {
-    return dataSet1[0];
+    const res = await api.get(`/performance-review/${id}`);
+    const json = (await res.json()) as FlatPerformanceReview;
+    console.log({ json });
+    return json;
   } catch (error) {
     return null;
   }
@@ -115,13 +68,17 @@ export async function deletePerformanceReview(
   }
 }
 
-export async function submitPerformanceReview(
-  prId: number,
-  reviewerId: number,
-  body: any
-) {
+interface SubmitChoicePayload {
+  QuestionId: number;
+  ChoiceId: number;
+  PerformanceReviewId: number;
+}
+
+export async function submitPerformanceReview(body: SubmitChoicePayload[]) {
   try {
-    const res = await api.post("", {});
+    const res = await api.post("/performance-review/submit", body);
     return res;
-  } catch (error) {}
+  } catch (error) {
+    throw error;
+  }
 }

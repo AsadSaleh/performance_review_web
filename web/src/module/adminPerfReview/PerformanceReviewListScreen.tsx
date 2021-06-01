@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
 import { Button, Table } from "reactstrap";
-import { PerformanceReview } from "../../models/performanceReview";
+import { FlatPerformanceReview } from "../../models/performanceReview";
 import { getPerformanceReviews } from "../../repositories/perfReviewRepository";
 
 export default function PerformanceReviewListScreen(
   props: RouteComponentProps
 ) {
-  const [data, setData] = useState<PerformanceReview[]>([]);
+  const [data, setData] = useState<FlatPerformanceReview[]>([]);
 
-  function handleEdit(e: PerformanceReview) {
+  function handleEdit(e: FlatPerformanceReview) {
     console.log({ e });
     props.history.push(`/performance-review/edit/${e.id}`);
   }
@@ -40,16 +40,18 @@ export default function PerformanceReviewListScreen(
         <thead>
           <tr>
             <td>No.</td>
-            <td>PR Target</td>
+            <td>Target Employee</td>
+            <td>Reviewer</td>
             <td>Status</td>
             <td>Action</td>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {data.map((item, i) => (
             <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.targetEmployee.name}</td>
+              <td>{i + 1}</td>
+              <td>{item.TargetEmployee.name}</td>
+              <td>{item.Reviewer.name}</td>
               <td>{item.status}</td>
               <td>
                 <Link to={`/performance-review/${item.id}`}>

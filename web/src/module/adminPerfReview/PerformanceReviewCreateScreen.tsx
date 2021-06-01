@@ -1,16 +1,22 @@
 import React from "react";
+import { RouteComponentProps } from "react-router";
 import { Container } from "reactstrap";
 import { createPerformanceReview } from "../../repositories/perfReviewRepository";
 import PerformanceReviewForm, {
   PerformanceReviewFormValues,
 } from "./components/PerformanceReviewForm";
 
-export default function PerformanceReviewCreateScreen() {
-  function handleSubmit(pr: PerformanceReviewFormValues) {
-    createPerformanceReview({
-      target_employee_id: pr.targetEmployee.id,
-      reviewers_id: pr.reviewers.map((e) => e.id),
-    });
+export default function PerformanceReviewCreateScreen(
+  props: RouteComponentProps
+) {
+  async function handleSubmit(pr: PerformanceReviewFormValues) {
+    try {
+      await createPerformanceReview({
+        TargetEmployeeId: pr.targetEmployee.id,
+        ReviewerIds: pr.reviewers.map((e) => e.id),
+      });
+      props.history.push("/performance-review");
+    } catch (error) {}
   }
   return (
     <Container fluid className="mt-2">

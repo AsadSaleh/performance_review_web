@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 import { Button, Col, Container, Row } from "reactstrap";
-import { PerformanceReview } from "../../models/performanceReview";
+import { FlatPerformanceReview } from "../../models/performanceReview";
 import { IdParams } from "../../models/routeParams";
 import { getPerformanceReview } from "../../repositories/perfReviewRepository";
 
@@ -10,7 +10,8 @@ export default function PerformanceReviewDetailScreen(
   props: RouteComponentProps<IdParams>
 ) {
   const id = +props.match.params.id;
-  const [perfReview, setPerfReview] = useState<PerformanceReview | null>(null);
+  const [perfReview, setPerfReview] =
+    useState<FlatPerformanceReview | null>(null);
 
   useEffect(() => {
     async function getPerformanceReviewHere() {
@@ -26,7 +27,7 @@ export default function PerformanceReviewDetailScreen(
   return (
     <div className="py-2">
       <div className="d-flex justify-content-between align-items-center px-2">
-        <h3>Performance Review for "{perfReview?.targetEmployee.name}"</h3>
+        <h3>Performance Review for "{perfReview?.TargetEmployee.name}"</h3>
         <div>
           <Link to={`/performance-review/edit/${perfReview.id}`}>
             <Button color="success">Edit Performance Review</Button>
@@ -38,10 +39,19 @@ export default function PerformanceReviewDetailScreen(
         <Row>
           <Col>
             <div>
-              Reviewers:
+              <span>Reviewer:</span>
+              <span>{perfReview.Reviewer.name}</span>
+              <br />
+              <span>Status:</span>
+              <span>{perfReview.status}</span>
+              <br />
+              <span>Results:</span>
               <ul>
-                {perfReview?.reviewers.map((reviewer) => (
-                  <li key={reviewer.id}>{reviewer.name}</li>
+                {perfReview.PerformanceReviewAnswers.map((e) => (
+                  <li key={e.Question.id}>
+                    {e.Question.text}:
+                    <span className="mx-2">{e.Choice.text}</span>
+                  </li>
                 ))}
               </ul>
             </div>
