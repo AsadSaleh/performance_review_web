@@ -1,6 +1,7 @@
 import bodyParser from "body-parser";
 import express from "express";
 import employeeRoute from "./routes/employee";
+import performanceReviewRoute from "./routes/perfReview";
 
 const app = express();
 const port = 3000;
@@ -21,8 +22,10 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/employee", employeeRoute);
+app.use("/performance-review", performanceReviewRoute);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
