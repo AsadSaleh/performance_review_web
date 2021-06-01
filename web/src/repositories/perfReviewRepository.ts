@@ -2,6 +2,7 @@ import {
   CreatePerformanceReviewPayload,
   PerformanceReview,
 } from "../models/performanceReview";
+import * as api from "../utils/api";
 
 const dataSet1: PerformanceReview[] = [
   {
@@ -58,6 +59,9 @@ const dataSet1: PerformanceReview[] = [
 
 export async function getPerformanceReviews(): Promise<PerformanceReview[]> {
   try {
+    const res = await api.get(`/performance-review`);
+    const json = await res.json();
+    console.log({ json });
     return dataSet1;
   } catch (error) {
     return [];
@@ -79,13 +83,7 @@ export async function createPerformanceReview(
 ): Promise<PerformanceReview | null> {
   try {
     console.log("hadir");
-    const response = await fetch("http://localhost:3000/performance-review", {
-      method: "POST",
-      body: JSON.stringify(e),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await api.post("/performance-review", e);
     const data: PerformanceReview = await response.json();
     return data;
   } catch {
@@ -98,16 +96,7 @@ export async function updatePerformanceReview(
   e: CreatePerformanceReviewPayload
 ): Promise<PerformanceReview | null> {
   try {
-    const response = await fetch(
-      `http://localhost:3000/performance-review/${id}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(e),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await api.put(`/performance-review/${id}`, e);
     const data: PerformanceReview = await response.json();
     return data;
   } catch {
@@ -119,7 +108,7 @@ export async function deletePerformanceReview(
   e: PerformanceReview
 ): Promise<true | null> {
   try {
-    await fetch("");
+    await api.deleteAsync("");
     return true;
   } catch {
     return null;
@@ -132,13 +121,7 @@ export async function submitPerformanceReview(
   body: any
 ) {
   try {
-    const res = await fetch("", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
+    const res = await api.post("", {});
     return res;
   } catch (error) {}
 }

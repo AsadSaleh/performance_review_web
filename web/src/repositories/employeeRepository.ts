@@ -1,8 +1,9 @@
 import { EditEmployee, Employee } from "../models/employee";
+import * as api from "../utils/api";
 
 export async function getEmployees(): Promise<Employee[]> {
   try {
-    const res = await fetch("http://localhost:3000/employee");
+    const res = await api.get(`/employee`);
     const json = await res.json();
     return json;
   } catch (error) {
@@ -12,7 +13,7 @@ export async function getEmployees(): Promise<Employee[]> {
 
 export async function getEmployee(id: string): Promise<Employee | null> {
   try {
-    const res = await fetch(`http://localhost:3000/employee/${id}`);
+    const res = await api.get(`/employee/${id}`);
     const json = (await res.json()) as Employee[];
     return json[0];
   } catch (error) {
@@ -24,13 +25,7 @@ export async function createEmployee(
   e: EditEmployee
 ): Promise<EditEmployee | null> {
   try {
-    const res = await fetch(`http://localhost:3000/employee`, {
-      method: "POST",
-      body: JSON.stringify(e),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await api.post(`/employee`, e);
     await res.json();
     return e;
   } catch {
@@ -43,13 +38,7 @@ export async function updateEmployee(
   e: EditEmployee
 ): Promise<Employee | null> {
   try {
-    const res = await fetch(`http://localhost:3000/employee/${id}`, {
-      method: "PUT",
-      body: JSON.stringify(e),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await api.put(`/employee/${id}`, e);
     await res.json();
     return { ...e, id };
   } catch {
@@ -59,9 +48,7 @@ export async function updateEmployee(
 
 export async function deleteEmployee(e: Employee): Promise<boolean> {
   try {
-    const res = await fetch(`http://localhost:3000/employee/${e.id}`, {
-      method: "DELETE",
-    });
+    const res = await api.deleteAsync(`/employee/${e.id}`);
     await res.json();
     return true;
   } catch {
