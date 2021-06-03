@@ -4,13 +4,6 @@ import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 import { useAuth } from "../store/auth";
 
-const navigationMenus = [
-  { label: "Home", path: "/" },
-  { label: "Employee", path: "/employee" },
-  { label: "Performance Reviews", path: "/performance-review" },
-  { label: "Pending Performance Reviews", path: "/pending-performance-review" },
-];
-
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
@@ -26,7 +19,26 @@ export default function TopNavigationBar() {
       type: "logout",
     });
   }
+
   const profileMenus = [{ label: "Sign out", onClick: handleLogout }];
+  const navigationMenus =
+    user?.role === "admin"
+      ? [
+          { label: "Home", path: "/" },
+          { label: "Employee", path: "/employee" },
+          { label: "Performance Reviews", path: "/performance-review" },
+          {
+            label: "Pending Performance Reviews",
+            path: "/pending-performance-review",
+          },
+        ]
+      : [
+          { label: "Home", path: "/" },
+          {
+            label: "Pending Performance Reviews",
+            path: "/pending-performance-review",
+          },
+        ];
 
   return (
     <div>
@@ -107,16 +119,15 @@ export default function TopNavigationBar() {
                               {profileMenus.map((item) => (
                                 <Menu.Item key={item.label}>
                                   {({ active }) => (
-                                    <a
-                                      href="#"
+                                    <button
                                       onClick={item.onClick}
                                       className={classNames(
                                         active ? "bg-gray-100" : "",
-                                        "block px-4 py-2 text-sm text-gray-700"
+                                        "block px-4 py-2 text-sm text-gray-700 w-full"
                                       )}
                                     >
                                       {item.label}
-                                    </a>
+                                    </button>
                                   )}
                                 </Menu.Item>
                               ))}
@@ -181,14 +192,13 @@ export default function TopNavigationBar() {
                 </div>
                 <div className="mt-3 px-2 space-y-1">
                   {profileMenus.map((item) => (
-                    <a
+                    <button
                       key={item.label}
                       onClick={item.onClick}
-                      href="#"
                       className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                     >
                       {item.label}
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>
