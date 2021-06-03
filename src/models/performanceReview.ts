@@ -32,6 +32,10 @@ export interface CreatePerformanceReviewPayload {
   ReviewerIds: number[];
 }
 
+export interface EditPerformanceReviewPayload {
+  ReviewerId: number;
+}
+
 export interface PerformanceReviewValue {
   id: number;
   targetEmployee: Employee;

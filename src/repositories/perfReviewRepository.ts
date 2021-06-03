@@ -1,5 +1,6 @@
 import {
   CreatePerformanceReviewPayload,
+  EditPerformanceReviewPayload,
   FlatPerformanceReview,
   PerformanceReview,
 } from "../models/performanceReview";
@@ -11,6 +12,19 @@ export async function getPerformanceReviews(): Promise<
   try {
     const res = await api.get(`/performance-review`);
     const json = (await res.json()) as FlatPerformanceReview[];
+    console.log({ json });
+    return json;
+  } catch (error) {
+    return [];
+  }
+}
+
+export async function getPerformanceReviewsByTargetEmployee(
+  employeeId: number
+): Promise<FlatPerformanceReview[]> {
+  try {
+    const res = await api.get(`/performance-review/employee/${employeeId}`);
+    const json = await res.json();
     console.log({ json });
     return json;
   } catch (error) {
@@ -57,14 +71,17 @@ export async function createPerformanceReview(
 
 export async function updatePerformanceReview(
   id: number,
-  e: CreatePerformanceReviewPayload
+  e: EditPerformanceReviewPayload
 ): Promise<PerformanceReview | null> {
   try {
-    const response = await api.put(`/performance-review/${id}`, e);
-    const data: PerformanceReview = await response.json();
+    const res = await api.put(`/performance-review/${id}`, e);
+    const data: PerformanceReview = await res.json();
+    if (res?.status !== 200) {
+      throw res;
+    }
     return data;
-  } catch {
-    return null;
+  } catch (error) {
+    throw error;
   }
 }
 
