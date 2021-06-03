@@ -39,7 +39,6 @@ export default function EditEmployeeScreen(
 
   return (
     <div className="p-5">
-      <h3>Edit Employee</h3>
       <EmployeeForm
         onSubmit={handleEditEmployee}
         initialValues={{
