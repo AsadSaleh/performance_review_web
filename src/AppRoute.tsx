@@ -32,7 +32,6 @@ function PrivateRoute(props: RouteProps) {
 }
 
 export default function AppRoute() {
-  console.log(useAuth());
   return (
     <Router>
       <Switch>
