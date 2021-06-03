@@ -30,10 +30,14 @@ const authReducer: AuthReducer = (
 ) => {
   switch (action.type) {
     case "login": {
-      return { isAuthed: true, user: action.payload };
+      const nextState = { isAuthed: true, user: action.payload };
+      window.localStorage.setItem("authStore", JSON.stringify(nextState));
+      return nextState;
     }
     case "logout": {
-      return { isAuthed: false, user: null };
+      const nextState = { isAuthed: false, user: null };
+      window.localStorage.setItem("authStore", JSON.stringify(nextState));
+      return nextState;
     }
     default: {
       return state;
@@ -55,7 +59,12 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = React.useReducer<AuthReducer, AuthState>(
     authReducer,
     { isAuthed: false, user: null },
-    (i) => i
+    (i) => {
+      const res = window.localStorage.getItem("authStore");
+      if (!res) return i;
+      const state = JSON.parse(res);
+      return state;
+    }
   );
   const value = { state, dispatch };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
