@@ -27,9 +27,12 @@ export async function createEmployee(
   try {
     const res = await api.post(`/employee`, e);
     await res.json();
+    if (res.status !== 200) {
+      throw res;
+    }
     return e;
-  } catch {
-    return null;
+  } catch (e) {
+    throw e;
   }
 }
 

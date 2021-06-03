@@ -4,12 +4,7 @@ export interface Employee {
   email?: string;
   department?: string;
   city?: string;
-  role?: string;
+  role?: "admin" | "employee";
 }
 
-export interface EditEmployee {
-  name: string;
-  email?: string;
-  department?: string;
-  city?: string;
-}
+export type EditEmployee = Omit<Employee, "id">;

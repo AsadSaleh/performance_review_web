@@ -28,11 +28,12 @@ export default function EditEmployeeScreen(
       department: v.department,
       city: v.city,
       email: v.email,
+      role: v.role ? "admin" : "employee",
     });
     props.history.push(`/employee/${employeeId}`);
   }
 
-  if (employee == null) {
+  if (employee === null) {
     return <div>No Data</div>;
   }
 
@@ -46,6 +47,7 @@ export default function EditEmployeeScreen(
           city: employee.city,
           department: employee.department,
           email: employee.email,
+          role: employee.role === "admin" ? true : false,
         }}
       />
     </div>

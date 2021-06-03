@@ -1,6 +1,8 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { toast } from "react-toastify";
 import { createEmployee } from "../../repositories/employeeRepository";
+import BaseLayout from "../../ui_components/BaseLayout";
 import EmployeeForm, { EmployeeFormValues } from "./components/EmployeeForm";
 
 export default function CreateEmployeeScreen(props: RouteComponentProps) {
@@ -11,15 +13,30 @@ export default function CreateEmployeeScreen(props: RouteComponentProps) {
         department: v.department,
         city: v.city,
         email: v.email,
+        role: v.role ? "admin" : "employee",
       });
       props.history.push("/employee");
-    } catch (error) {}
+      toast(
+        <div>
+          <div>Success!</div>
+          <div>Created new user: {v.name}</div>
+        </div>,
+        { type: "success" }
+      );
+    } catch (error) {
+      toast(
+        <div>
+          <div>Error!</div>
+          <div>Failed to create user</div>
+        </div>,
+        { type: "error" }
+      );
+    }
   }
 
   return (
-    <div className="p-5">
-      <h3>Create New Employee</h3>
+    <BaseLayout title="Create New Employee">
       <EmployeeForm onSubmit={handleCreateEmployee} />
-    </div>
+    </BaseLayout>
   );
 }
