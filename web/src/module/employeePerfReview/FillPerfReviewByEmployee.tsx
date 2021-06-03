@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Button, Container } from "reactstrap";
-import { Employee } from "../../models/employee";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import {
   getPerformanceReview,
   submitPerformanceReview,
 } from "../../repositories/perfReviewRepository";
+import { useAuth } from "../../store/auth";
 
 type LabelValue = {
   label: string;
@@ -24,10 +24,10 @@ const radios: LabelValue[] = [
 export default function FillPerfReviewByEmployee(
   props: RouteComponentProps<{ performanceReviewId: string }>
 ) {
-  const currentUser: Employee = {
-    id: 879423,
-    name: "Hasan",
-  };
+  const {
+    state: { user },
+  } = useAuth();
+
   const id = props.match.params.performanceReviewId;
   const [pr, setPr] = useState<FlatPerformanceReview | null>(null);
 
@@ -70,7 +70,7 @@ export default function FillPerfReviewByEmployee(
       <h3>Employee Peer Review</h3>
       <div>
         <h6>Performance Review for: "{pr?.TargetEmployee?.name}"</h6>
-        <h6>By: "{currentUser.name}"</h6>
+        <h6>By: "{user?.name}"</h6>
         <form onSubmit={handleSubmit}>
           {/* 1 */}
           <div className="mb-4">

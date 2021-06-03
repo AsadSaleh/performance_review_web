@@ -2,20 +2,24 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button, Table } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
-import { getPerformanceReviews } from "../../repositories/perfReviewRepository";
+import { getEmployeePerformanceReviews } from "../../repositories/perfReviewRepository";
+import { useAuth } from "../../store/auth";
 
 export default function EmployeePerformanceReviewList() {
+  const {
+    state: { user },
+  } = useAuth();
   const [prs, setPrs] = useState<FlatPerformanceReview[]>([]);
 
   useEffect(() => {
     async function getData() {
       try {
-        const res = await getPerformanceReviews();
+        const res = await getEmployeePerformanceReviews(user?.id!);
         setPrs(res);
       } catch (error) {}
     }
     getData();
-  }, []);
+  }, [user?.id]);
 
   return (
     <div className="py-2">

@@ -18,6 +18,17 @@ export async function getPerformanceReviews(): Promise<
   }
 }
 
+export async function getEmployeePerformanceReviews(employeeId: number) {
+  try {
+    const res = await api.get(`/performance-review/reviewer/${employeeId}`);
+    const json = await res.json();
+    console.log({ json });
+    return json;
+  } catch (error) {
+    return [];
+  }
+}
+
 export async function getPerformanceReview(
   id: number
 ): Promise<FlatPerformanceReview | null> {
@@ -52,17 +63,6 @@ export async function updatePerformanceReview(
     const response = await api.put(`/performance-review/${id}`, e);
     const data: PerformanceReview = await response.json();
     return data;
-  } catch {
-    return null;
-  }
-}
-
-export async function deletePerformanceReview(
-  e: PerformanceReview
-): Promise<true | null> {
-  try {
-    await api.deleteAsync("");
-    return true;
   } catch {
     return null;
   }
