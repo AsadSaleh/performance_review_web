@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Button, Table } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import { getPerformanceReviews } from "../../repositories/perfReviewRepository";
 
@@ -32,11 +31,11 @@ export default function PerformanceReviewListScreen(
   return (
     <div className="py-2">
       <div className="d-flex justify-content-end px-2">
-        <Button color="primary" onClick={handleCreateNewPR}>
+        <button onClick={handleCreateNewPR}>
           Create New Performance Review
-        </Button>
+        </button>
       </div>
-      <Table>
+      <table>
         <thead>
           <tr>
             <td>No.</td>
@@ -55,24 +54,14 @@ export default function PerformanceReviewListScreen(
               <td>{item.status}</td>
               <td>
                 <Link to={`/performance-review/${item.id}`}>
-                  <Button color="primary" size="sm" outline>
-                    Go to Detail
-                  </Button>
+                  <button>Go to Detail</button>
                 </Link>
-                <Button
-                  color="success"
-                  size="sm"
-                  onClick={() => handleEdit(item)}
-                  outline
-                  className="mx-2"
-                >
-                  Edit
-                </Button>
+                <button onClick={() => handleEdit(item)}>Edit</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }

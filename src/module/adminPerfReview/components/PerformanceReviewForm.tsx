@@ -1,6 +1,5 @@
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
-import { Button } from "reactstrap";
 import { Employee } from "../../../models/employee";
 import { getEmployees } from "../../../repositories/employeeRepository";
 
@@ -97,16 +96,14 @@ export default function PerformanceReviewForm(
           onFocus={handleFocus}
         />
 
-        <Button
+        <button
           onClick={handleSubmit}
-          color="primary"
-          className="mt-3"
           disabled={targetEmployee === null || reviewers.length === 0}
         >
           {props.initialValues
             ? "Update Performance Review"
             : "Create New Performance Review"}
-        </Button>
+        </button>
       </div>
     </div>
   );

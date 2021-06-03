@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
-import { Button, Col, Container, Row } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import { IdParams } from "../../models/routeParams";
 import { getPerformanceReview } from "../../repositories/perfReviewRepository";
@@ -30,14 +29,14 @@ export default function PerformanceReviewDetailScreen(
         <h3>Performance Review for "{perfReview?.TargetEmployee.name}"</h3>
         <div>
           <Link to={`/performance-review/edit/${perfReview.id}`}>
-            <Button color="success">Edit Performance Review</Button>
+            <button>Edit Performance Review</button>
           </Link>
         </div>
       </div>
 
-      <Container fluid>
-        <Row>
-          <Col>
+      <div>
+        <div>
+          <div>
             <div>
               <span>Reviewer:</span>
               <span>{perfReview.Reviewer.name}</span>
@@ -55,9 +54,9 @@ export default function PerformanceReviewDetailScreen(
                 ))}
               </ul>
             </div>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

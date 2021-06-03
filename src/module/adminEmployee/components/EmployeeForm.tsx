@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { Button, Col, Form, Row } from "reactstrap";
 
 export type EmployeeFormValues = {
   name: string;
@@ -20,57 +19,57 @@ export default function EmployeeForm(props: EmployeeFormProps) {
   });
 
   return (
-    <Form onSubmit={handleSubmit(props.onSubmit)}>
-      <Row className="mb-2">
-        <Col xs={3}>
+    <form onSubmit={handleSubmit(props.onSubmit)}>
+      <div className="mb-2">
+        <div>
           <label>Full Name</label>
-        </Col>
-        <Col xs={6}>
+        </div>
+        <div>
           <input
             {...register("name", { required: true })}
             placeholder="John Doe"
             required
           />
-        </Col>
-      </Row>
-      <Row className="mb-2">
-        <Col xs={3}>
+        </div>
+      </div>
+      <div className="mb-2">
+        <div>
           <label>Department</label>
-        </Col>
-        <Col xs={6}>
+        </div>
+        <div>
           <input
             {...register("department")}
             id="department"
             placeholder="Sales Team"
           />
-        </Col>
-      </Row>
-      <Row className="mb-2">
-        <Col xs={3}>
+        </div>
+      </div>
+      <div className="mb-2">
+        <div>
           <label>City</label>
-        </Col>
-        <Col xs={6}>
+        </div>
+        <div>
           <input {...register("city")} id="city" placeholder="Jakarta" />
-        </Col>
-      </Row>
-      <Row className="mb-2">
-        <Col xs={3}>
+        </div>
+      </div>
+      <div className="mb-2">
+        <div>
           <label>Email</label>
-        </Col>
-        <Col xs={6}>
+        </div>
+        <div>
           <input
             {...register("email")}
             id="email"
             placeholder="user@gmail.com"
           />
-        </Col>
-      </Row>
+        </div>
+      </div>
 
       <div className="d-flex justify-content-end">
-        <Button type="submit" color="primary" className="mt-5">
+        <button type="submit">
           {props.initialValues ? "Update" : "Create"}
-        </Button>
+        </button>
       </div>
-    </Form>
+    </form>
   );
 }

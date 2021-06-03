@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Button, Table } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import { getEmployeePerformanceReviews } from "../../repositories/perfReviewRepository";
 import { useAuth } from "../../store/auth";
@@ -24,7 +23,7 @@ export default function EmployeePerformanceReviewList() {
   return (
     <div className="py-2">
       <div className="d-flex justify-content-end px-2"></div>
-      <Table>
+      <table>
         <thead>
           <tr>
             <td>No.</td>
@@ -41,15 +40,13 @@ export default function EmployeePerformanceReviewList() {
               <td>{pr.status}</td>
               <td>
                 <Link to={`/pending-performance-review/${pr.id}`}>
-                  <Button color="primary" size="sm" outline>
-                    Fill out the form
-                  </Button>
+                  <button>Fill out the form</button>
                 </Link>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }

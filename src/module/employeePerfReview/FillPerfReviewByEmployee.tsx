@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import { Button, Container } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import {
   getPerformanceReview,
@@ -66,7 +65,7 @@ export default function FillPerfReviewByEmployee(
   }
 
   return (
-    <Container fluid>
+    <div>
       <h3>Employee Peer Review</h3>
       <div>
         <h6>Performance Review for: "{pr?.TargetEmployee?.name}"</h6>
@@ -159,12 +158,10 @@ export default function FillPerfReviewByEmployee(
             })}
           </div>
 
-          <Button type="submit" color="primary" className="my-2">
-            Submit Peer Review
-          </Button>
+          <button type="submit">Submit Peer Review</button>
         </form>
       </div>
-    </Container>
+    </div>
   );
 }
 

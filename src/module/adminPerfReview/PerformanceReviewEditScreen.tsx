@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { RouteComponentProps } from "react-router";
-import { Container } from "reactstrap";
 import { FlatPerformanceReview } from "../../models/performanceReview";
 import {
   getPerformanceReview,
@@ -34,7 +33,7 @@ export default function PerformanceReviewEditScreen(
   }
 
   return (
-    <Container fluid className="mt-2">
+    <div className="mt-2">
       <h3>Edit Performance Review</h3>
       {/* <PerformanceReviewForm
         onSubmit={handleSubmit}
@@ -43,6 +42,6 @@ export default function PerformanceReviewEditScreen(
           targetEmployee: pr?.targetEmployee as Employee,
         }}
       /> */}
-    </Container>
+    </div>
   );
 }

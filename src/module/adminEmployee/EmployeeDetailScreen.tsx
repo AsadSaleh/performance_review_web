@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Button, Col, Container, Row } from "reactstrap";
 import { Employee } from "../../models/employee";
 import { IdParams } from "../../models/routeParams";
 import { getEmployee } from "../../repositories/employeeRepository";
@@ -29,32 +28,32 @@ export default function EmployeeDetailScreen(
         <h3>{employee.name}</h3>
         <div>
           <Link to={`/employee/${id}/edit`} className="mx-2">
-            <Button color="success">Edit Employee</Button>
+            <button>Edit Employee</button>
           </Link>
           <Link to={`/performance-review/new/${id}`}>
-            <Button color="primary">Create Performance Review</Button>
+            <button>Create Performance Review</button>
           </Link>
         </div>
       </div>
 
-      <Container fluid>
-        <Row>
-          <Col xs={3}>ID</Col>
-          <Col>{employee.id}</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Email</Col>
-          <Col>{employee.email}</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>Department</Col>
-          <Col>{employee.department}</Col>
-        </Row>
-        <Row>
-          <Col xs={3}>City</Col>
-          <Col>{employee.city}</Col>
-        </Row>
-      </Container>
+      <div>
+        <div>
+          <div>ID</div>
+          <div>{employee.id}</div>
+        </div>
+        <div>
+          <div>Email</div>
+          <div>{employee.email}</div>
+        </div>
+        <div>
+          <div>Department</div>
+          <div>{employee.department}</div>
+        </div>
+        <div>
+          <div>City</div>
+          <div>{employee.city}</div>
+        </div>
+      </div>
     </div>
   );
 }

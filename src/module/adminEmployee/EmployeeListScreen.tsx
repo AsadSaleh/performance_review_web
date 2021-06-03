@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, RouteComponentProps } from "react-router-dom";
-import { Table, Button } from "reactstrap";
 import { Employee } from "../../models/employee";
 import {
   deleteEmployee,
@@ -53,11 +52,9 @@ export default function EmployeeListScreen(props: RouteComponentProps) {
   return (
     <div className="py-2">
       <div className="d-flex justify-content-end px-2">
-        <Button color="primary" onClick={handleCreateNewEmployee}>
-          Create New Employee
-        </Button>
+        <button onClick={handleCreateNewEmployee}>Create New Employee</button>
       </div>
-      <Table>
+      <table>
         <thead>
           <tr>
             <td>No.</td>
@@ -76,32 +73,15 @@ export default function EmployeeListScreen(props: RouteComponentProps) {
               <td>{item.city}</td>
               <td>
                 <Link to={`/employee/${item.id}`}>
-                  <Button color="primary" size="sm" outline>
-                    Go to Detail
-                  </Button>
+                  <button>Go to Detail</button>
                 </Link>
-                <Button
-                  onClick={() => handleEdit(item)}
-                  color="success"
-                  size="sm"
-                  className="mx-2"
-                  outline
-                >
-                  Edit
-                </Button>
-                <Button
-                  onClick={() => handleDelete(item)}
-                  color="danger"
-                  size="sm"
-                  outline
-                >
-                  Delete
-                </Button>
+                <button onClick={() => handleEdit(item)}>Edit</button>
+                <button onClick={() => handleDelete(item)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
-      </Table>
+      </table>
     </div>
   );
 }

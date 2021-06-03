@@ -1,6 +1,5 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Container } from "reactstrap";
 import { createPerformanceReview } from "../../repositories/perfReviewRepository";
 import PerformanceReviewForm, {
   PerformanceReviewFormValues,
@@ -19,9 +18,9 @@ export default function PerformanceReviewCreateScreen(
     } catch (error) {}
   }
   return (
-    <Container fluid className="mt-2">
+    <div className="mt-2">
       <h3>Create Performance Review</h3>
       <PerformanceReviewForm onSubmit={handleSubmit} />
-    </Container>
+    </div>
   );
 }
