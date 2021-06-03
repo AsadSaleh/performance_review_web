@@ -19,7 +19,7 @@ export default function CreateEmployeeScreen(props: RouteComponentProps) {
       toast(
         <div>
           <div>Success!</div>
-          <div>Created new user: {v.name}</div>
+          <div className="text-sm">Created new user: {v.name}</div>
         </div>,
         { type: "success" }
       );
@@ -27,7 +27,7 @@ export default function CreateEmployeeScreen(props: RouteComponentProps) {
       toast(
         <div>
           <div>Error!</div>
-          <div>Failed to create user</div>
+          <div className="text-sm">Failed to create user</div>
         </div>,
         { type: "error" }
       );
