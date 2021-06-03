@@ -49,36 +49,49 @@ export default function EmployeePerformanceReviewList() {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {prs.map((pr) => (
-                    <tr key={pr.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-gray-900">
-                          {pr.TargetEmployee.name}
+                  {prs.length ? (
+                    prs.map((pr) => (
+                      <tr key={pr.id}>
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          <div className="text-sm font-medium text-gray-900">
+                            {pr.TargetEmployee.name}
+                          </div>
+                        </td>
+
+                        <td className="px-6 py-4 whitespace-nowrap">
+                          {pr.status === "completed" ? (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                              Completed
+                            </span>
+                          ) : (
+                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-800">
+                              Pending
+                            </span>
+                          )}
+                        </td>
+
+                        <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                          <Link
+                            to={`/pending-performance-review/${pr.id}`}
+                            className="text-indigo-600 hover:text-indigo-900 px-4"
+                          >
+                            Fill Out the Form
+                          </Link>
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <tr>
+                      <td colSpan={3}>
+                        <div className="text-sm text-gray-500 self-center text-center p-4">
+                          All Good 😄👍
+                          <div>
+                            You don't have any pending performance review.
+                          </div>
                         </div>
                       </td>
-
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        {pr.status === "completed" ? (
-                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                            Completed
-                          </span>
-                        ) : (
-                          <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-800">
-                            Pending
-                          </span>
-                        )}
-                      </td>
-
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <Link
-                          to={`/pending-performance-review/${pr.id}`}
-                          className="text-indigo-600 hover:text-indigo-900 px-4"
-                        >
-                          Fill Out the Form
-                        </Link>
-                      </td>
                     </tr>
-                  ))}
+                  )}
                 </tbody>
               </table>
             </div>
