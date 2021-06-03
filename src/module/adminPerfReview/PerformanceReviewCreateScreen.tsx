@@ -1,6 +1,8 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
+import { toast } from "react-toastify";
 import { createPerformanceReview } from "../../repositories/perfReviewRepository";
+import BaseLayout from "../../ui_components/BaseLayout";
 import PerformanceReviewForm, {
   PerformanceReviewFormValues,
 } from "./components/PerformanceReviewForm";
@@ -15,12 +17,28 @@ export default function PerformanceReviewCreateScreen(
         ReviewerIds: pr.reviewers.map((e) => e.id),
       });
       props.history.push("/performance-review");
-    } catch (error) {}
+      toast(
+        <div>
+          <div>Success!</div>
+          <div className="text-sm">
+            Created performance review for {pr.targetEmployee.name}
+          </div>
+        </div>,
+        { type: "success" }
+      );
+    } catch (error) {
+      toast(
+        <div>
+          <div>Error!</div>
+          <div className="text-sm">Failed to create performance review</div>
+        </div>,
+        { type: "error" }
+      );
+    }
   }
   return (
-    <div className="mt-2">
-      <h3>Create Performance Review</h3>
+    <BaseLayout title="Create New Performance Review">
       <PerformanceReviewForm onSubmit={handleSubmit} />
-    </div>
+    </BaseLayout>
   );
 }

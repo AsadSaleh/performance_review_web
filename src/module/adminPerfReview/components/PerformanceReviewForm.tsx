@@ -65,45 +65,55 @@ export default function PerformanceReviewForm(
     return filteredEmployees;
   }
   return (
-    <div>
-      <div className="py-2">
-        <div>Performance Review for:</div>
-        <AsyncSelect<Employee, false>
-          isClearable
-          cacheOptions
-          defaultOptions
-          getOptionLabel={(option) => option.name}
-          getOptionValue={(option) => option.name}
-          loadOptions={getTargetEmployeeOptions}
-          onChange={(value) => handleTargetEmployeeSelect(value)}
-          value={targetEmployee}
-        />
+    <div className="mt-10 sm:mt-0">
+      <div className="md:grid ">
+        <div className="mt-5 md:mt-0 md:col-span-2">
+          <div className="shadow sm:rounded-md">
+            <div className="mt-5 md:mt-0 md:col-span-2 shadow sm:rounded-md px-4 py-5 bg-white sm:p-6">
+              <div>Performance Review for:</div>
+              <AsyncSelect<Employee, false>
+                isClearable
+                cacheOptions
+                defaultOptions
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.name}
+                loadOptions={getTargetEmployeeOptions}
+                onChange={(value) => handleTargetEmployeeSelect(value)}
+                value={targetEmployee}
+              />
 
-        <br />
+              <br />
 
-        <div>Assign Co-Workers:</div>
-        <AsyncSelect<Employee, true>
-          isMulti
-          cacheOptions
-          defaultOptions={defaultOptions}
-          closeMenuOnSelect={false}
-          getOptionLabel={(option) => option.name}
-          getOptionValue={(option) => option.name}
-          loadOptions={getReviewerOptions}
-          onChange={(value) => handleReviewersSelect(value ?? [])}
-          isDisabled={!targetEmployee}
-          value={reviewers}
-          onFocus={handleFocus}
-        />
+              <div>Assign Reviewers:</div>
+              <AsyncSelect<Employee, true>
+                isMulti
+                cacheOptions
+                defaultOptions={defaultOptions}
+                closeMenuOnSelect={false}
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.name}
+                loadOptions={getReviewerOptions}
+                onChange={(value) => handleReviewersSelect(value ?? [])}
+                isDisabled={!targetEmployee}
+                value={reviewers}
+                onFocus={handleFocus}
+              />
+            </div>
 
-        <button
-          onClick={handleSubmit}
-          disabled={targetEmployee === null || reviewers.length === 0}
-        >
-          {props.initialValues
-            ? "Update Performance Review"
-            : "Create New Performance Review"}
-        </button>
+            <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
+              <button
+                onClick={handleSubmit}
+                className="inline-flex items-center px-8 py-2 border border-transparent rounded-md 
+                  shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 
+                  focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                {props.initialValues
+                  ? "Update Performance Review"
+                  : "Create New Performance Review"}
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
