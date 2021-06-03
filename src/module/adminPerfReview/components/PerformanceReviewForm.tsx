@@ -70,7 +70,7 @@ export default function PerformanceReviewForm(
         <div className="mt-5 md:mt-0 md:col-span-2">
           <div className="shadow sm:rounded-md">
             <div className="mt-5 md:mt-0 md:col-span-2 shadow sm:rounded-md px-4 py-5 bg-white sm:p-6">
-              <div>Performance Review for:</div>
+              <div className="mt-1 text-gray-600">Performance Review for:</div>
               <AsyncSelect<Employee, false>
                 isClearable
                 cacheOptions
@@ -84,7 +84,7 @@ export default function PerformanceReviewForm(
 
               <br />
 
-              <div>Assign Reviewers:</div>
+              <div className="mt-1 text-gray-600">Assign Reviewers:</div>
               <AsyncSelect<Employee, true>
                 isMulti
                 cacheOptions
@@ -99,7 +99,6 @@ export default function PerformanceReviewForm(
                 onFocus={handleFocus}
               />
             </div>
-
             <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
               <button
                 onClick={handleSubmit}
