@@ -1,47 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import {
-  Collapse,
-  Nav,
-  Navbar,
-  NavbarBrand,
-  NavbarToggler,
-  NavItem,
-  NavLink,
-} from "reactstrap";
+import { useAuth } from "../store/auth";
 
 export default function TopNavigationBar() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggle = () => setIsOpen(!isOpen);
+  const auth = useAuth();
+  // const history = useHistory();
+  function handleLogout() {
+    auth.dispatch({
+      type: "logout",
+    });
+  }
 
   return (
     <div className="px-2">
-      <Navbar color="light" light expand="md">
-        <Link to="/" component={NavbarBrand}>
-          Performance Review App
-        </Link>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <Link to="/employee" component={NavLink}>
-                Employees
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link component={NavLink} to="/performance-review">
-                Performance Reviews
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link component={NavLink} to="/pending-performance-review">
-                Pending Performance Reviews
-              </Link>
-            </NavItem>
-          </Nav>
-        </Collapse>
-      </Navbar>
+      <Link to="/">Performance Review App</Link>
+      <Link to="/employee">Employees</Link>
+      <Link to="/performance-review">Performance Reviews</Link>
+      <Link to="/pending-performance-review">Pending Performance Reviews</Link>
+
+      <button onClick={handleLogout}>
+        <span>Logout</span>
+      </button>
     </div>
   );
 }

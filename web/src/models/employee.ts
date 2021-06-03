@@ -4,6 +4,7 @@ export interface Employee {
   email?: string;
   department?: string;
   city?: string;
+  role?: string;
 }
 
 export interface EditEmployee {
