@@ -98,12 +98,14 @@ export default function PerformanceReviewListScreen() {
                         >
                           View
                         </Link>
-                        <Link
-                          to={`/performance-review/edit/${performanceReview.id}`}
-                          className="text-green-600 hover:text-green-900 px-4"
-                        >
-                          Edit
-                        </Link>
+                        {performanceReview.status !== "completed" ? (
+                          <Link
+                            to={`/performance-review/edit/${performanceReview.id}`}
+                            className="text-green-600 hover:text-green-900 px-4"
+                          >
+                            Edit
+                          </Link>
+                        ) : null}
                       </td>
                     </tr>
                   ))}
