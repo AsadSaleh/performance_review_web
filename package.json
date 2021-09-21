@@ -13,6 +13,8 @@
     "@types/node": "^12.20.14",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.3",
+    "enzyme": "^3.11.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.7.1",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme": "^3.10.9",
     "@types/react-router-dom": "^5.1.7",
     "@types/react-select": "^4.0.15",
     "autoprefixer": "^9.8.6",

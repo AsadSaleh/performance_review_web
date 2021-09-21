@@ -4,6 +4,7 @@ import { FlatPerformanceReview } from "../../models/performanceReview";
 import { getEmployeePerformanceReviews } from "../../repositories/perfReviewRepository";
 import { useAuth } from "../../store/auth";
 import BaseLayout from "../../ui_components/BaseLayout";
+import Pill from "../../ui_components/Pill";
 
 export default function EmployeePerformanceReviewList() {
   const {
@@ -60,13 +61,13 @@ export default function EmployeePerformanceReviewList() {
 
                         <td className="px-6 py-4 whitespace-nowrap">
                           {pr.status === "completed" ? (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            <Pill className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                               Completed
-                            </span>
+                            </Pill>
                           ) : (
-                            <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-800">
+                            <Pill className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-200 text-yellow-800">
                               Pending
-                            </span>
+                            </Pill>
                           )}
                         </td>
 

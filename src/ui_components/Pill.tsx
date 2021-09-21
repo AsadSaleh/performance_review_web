@@ -7,6 +7,9 @@ export default function Pill({
   children: React.ReactNode;
   className?: string;
 }) {
+  if (children == null) {
+    children = "Unknown";
+  }
   return (
     <span
       className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full  ${
