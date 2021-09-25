@@ -20,7 +20,7 @@ export default function InitialScreen() {
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg bg-gray-50 p-12">
-              <div className="">
+              <div className="cy-main-dashboard">
                 <p className="text-4xl mb-4">Give a Peer Review</p>
                 <p className="text-lg">
                   This platform allows you to give a Performance Review (or

@@ -25,7 +25,7 @@ export default function LoginScreen() {
     } catch (error) {
       console.log(error);
       toast(
-        <div>
+        <div className="cy-login-error">
           <div>Invalid Email</div>
           <div className="text-sm">Please Check if your email is correct.</div>
         </div>,
